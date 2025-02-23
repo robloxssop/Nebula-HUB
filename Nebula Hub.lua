@@ -271,7 +271,7 @@ local RunService = game:GetService("RunService")
 
 -- ฟังก์ชันที่จะเปลี่ยนตำแหน่งของ Part ให้ตรงกับ Football
 local function UpdatePartPosition(newPart, Football)
-    if Football then
+    if Football and newPart then
         -- เปลี่ยนตำแหน่งของ newPart ให้ตรงกับ Football
         newPart.CFrame = Football.CFrame 
     end
@@ -280,8 +280,11 @@ end
 -- ฟังก์ชันที่จะเปลี่ยนตำแหน่งของ Football เมื่อสัมผัสกับ Part
 local function UpdateFootballPositionOnTouch(player, Football)
     if Football and player and player.Character then
-        -- เปลี่ยนตำแหน่งของ Football ให้ตรงกับตัวผู้เล่น
-        Football.CFrame = player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 0, 0)  -- ทำให้ Football อยู่เหนือตัวผู้เล่น
+        local humanoidRootPart = player.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            -- เปลี่ยนตำแหน่งของ Football ให้ตรงกับตัวผู้เล่น
+            Football.CFrame = humanoidRootPart.CFrame + Vector3.new(0, 0, 5)  -- ทำให้ Football อยู่หน้าผู้เล่น
+        end
     end
 end
 
